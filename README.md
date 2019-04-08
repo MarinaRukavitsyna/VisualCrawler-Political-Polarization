@@ -14,7 +14,7 @@ This is the Visual Crawler Research Lab Project held by University of Koblenz-La
 
 * Dr. Oul Han, han@uni-koblenz.de
 * Ipek Baris, ibaris@uni-koblenz.de
-* Institute for Web Science and Technoloogies (WEST), University of Koblenz-Landau
+* [Institute for Web Science and Technoloogies (WEST)](https://west.uni-koblenz.de), University of Koblenz-Landau
 
 # License
-All code is license under ### .
+All code is license under [MIT License](https://opensource.org/licenses/MIT) .
