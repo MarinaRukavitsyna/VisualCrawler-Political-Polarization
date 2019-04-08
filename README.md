@@ -1,5 +1,4 @@
-# Forschungspraktikum/Projektpraktikum "Online political polarization"
-# Visual Crawler Group
+# Forschungspraktikum/Projektpraktikum "Online political polarization" > Visual Crawler Group
 
 # Disclaimer
 
