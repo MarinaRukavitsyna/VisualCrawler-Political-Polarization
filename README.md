@@ -1,11 +1,11 @@
 # Forschungspraktikum/Projektpraktikum "Online political polarization" > Visual Crawler Group
 
-# Disclaimer
-
-
 # Summary
 
 Crawling datasets of political figure, hate speech on given source containing visual images of politicians.
+
+
+Coming soon!
 
 --------------------------------------------------------------------------------------------------------------------------------
 
