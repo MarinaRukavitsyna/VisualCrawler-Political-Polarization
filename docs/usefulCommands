@@ -1,0 +1,8 @@
+# javaher 2019-06-17
+# javaher@uni-koblenz.de
+# this file contains some commands that might help you:
+
+sudo apt-get install python python-pip build-essential cmake pkg-config libx11-dev libatlas-base-dev libgtk-3-dev libboost-python-dev -y
+
+
+conda create -n environment_name python=3.6
