@@ -1,0 +1,4 @@
+starttime|2019-06-01 00:00:00
+endtime|2019-07-10 23:59:59
+tweets_about|katy perry,miley cyrus
+twitter_handles|'@katyperry', 'mileycyrus', '@ladygaga', '@BarackObama', '@rihanna'
