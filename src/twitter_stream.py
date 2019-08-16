@@ -6,10 +6,10 @@ import json
 import re
 import pandas
 
-consumer_key = 'gkkyZWHLaTKz0lEWgIS04aqZz'
-consumer_secret_key = 'GBvbd9j4ulE1QqXRcryBTvMgD9QJvccbwAnDkdB8EjnMyfLcHz'
-access_token = '1132328609270697985-hVxMrxq8ZTYLMEQYWD7rXZnqwSgIzq'
-access_token_key = '889vgnfWTWQs3yFxEoGya4DTGmnMnq6HQjk80GXOI2ZV9'
+consumer_key = 'WAfMFUeX727ZJyHbxRG5TqbHx'
+consumer_secret_key = 'QempGWO01nvNXJROIBHdIPAcGsC78qCzM4XI7ZYbZEsTlL0jb2'
+access_token = '1132328609270697985-o0RjHLFH5oEeNw5It2gOiJgPOPBpMD'
+access_token_key = 'CmFuCC6UAZpV8GgSs5Y3pH3dGWX5x1zL6cNry2ESQT7Pr'
 
 class listener(StreamListener):
 
