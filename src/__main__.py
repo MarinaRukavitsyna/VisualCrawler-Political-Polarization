@@ -112,9 +112,9 @@ def update_tagger_frame(data_frame, token):
 
 # AJAVAHER: call Tweeter API >>>
 
-className = 'ClassB'
+className = ''
 if '' == className:
-    print('Select Class Name:')
+    print('Select Class Name: (Class___)')
     className = input()
 print('FaceRecognition: Initializing...')
 # which class of data we want to have
@@ -139,6 +139,7 @@ classTaggerFrame['occurrence'] = 0
 # tests>
 
 testFiles = [
+    "temp_113.jpeg",
     "temp_2.jpeg",
     "temp_3.jpg",
     "temp_6.jpg",
