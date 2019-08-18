@@ -1,9 +1,0 @@
-Run instructions:
-Step 1: to set-up twitter stream:
- python twitter_stream.py > tweets_2_date_20190816.json 
-
-Step 2: To prepare tweets info csv file:
-python tweet_info_extraction.py
-
-Step 3: To get the replies:
-python twitter_replies.py
