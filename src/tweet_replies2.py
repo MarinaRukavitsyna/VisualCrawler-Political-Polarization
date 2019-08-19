@@ -58,40 +58,79 @@ def get_replies(tweet_element):
                                           'created_at',
                                           'user_friends_count',
                                           'user_follower_count',
-                                          'user_location'
+                                          'user_location',
+                                          'is_matched',
                                           ])
 
+    # print('Now checking: ' + str(tweet_id))
     while True:
         q = urllib.parse.urlencode({"q": "to:%s" % user})
         # print(str(q))
         try:
+            print('Connecting to Twitter')
             replies = t.GetSearch(raw_query=q, since_id=tweet_id, max_id=max_id, count=100)
+            print('Response from Twitter')
         except twitter.error.TwitterError as e:
             logging.error("caught twitter api error: %s", e)
             time.sleep(60)
             continue
         for tempest_reply in replies:
             logging.info("examining: %s" % tweet_url(tempest_reply))
+            parsed_json = (json.loads(str(tempest_reply)))
+            is_matched = False
             if tempest_reply.in_reply_to_status_id == tweet_id:
+                is_matched = True
+                print('Matched Tweet ID: ' + str(tweet_id))
                 logging.info("found reply: %s" % tweet_url(tempest_reply))
-                parsed_json = (json.loads(str(tempest_reply)))
-                my_reply_list = my_reply_list.append({
-                    'tweet_id': tweet_id,
-                    'reply_id': parsed_json['id'],
-                    'hashtags': parsed_json['hashtags'],
-                    'country': parsed_json['place']['country'],
-                    'location_full_name': parsed_json['place']['full_name'],
-                    'user_id': parsed_json['user']['id'],
-                    'user_friends_count': parsed_json['user']['friends_count'],
-                    'user_follower_count': parsed_json['user']['followers_count'],
-                    'user_location': parsed_json['user']['location'],
-                    'text': parsed_json['text'],
-                    'created_at': parsed_json['created_at']
-                }, ignore_index=True)
                 yield tempest_reply
                 # recursive magic to also get the replies to this reply
                 for reply_to_reply in get_replies(tempest_reply):
+                    # never happened
+                    print(reply_to_reply)
                     yield reply_to_reply
+            # save all replies anyways
+            temper = {
+                'country': '',
+                'full_name': '',
+                'user_location': '',
+                'friends_count': '',
+                'followers_count': '',
+            }
+            try:
+                temper['country'] = parsed_json['place']['country']
+            except:
+                pass
+            try:
+                temper['full_name'] = parsed_json['place']['full_name']
+            except:
+                pass
+            try:
+                temper['user_location'] = parsed_json['user']['location']
+            except:
+                pass
+            try:
+                temper['friends_count'] = parsed_json['user']['friends_count']
+            except:
+                pass
+            try:
+                temper['followers_count'] = parsed_json['user']['followers_count']
+            except:
+                pass
+
+            my_reply_list = my_reply_list.append({
+                'tweet_id': tempest_reply.in_reply_to_status_id,
+                'reply_id': parsed_json['id'],
+                'hashtags': parsed_json['hashtags'],
+                'country': temper['country'],
+                'location_full_name': temper['full_name'],
+                'user_id': parsed_json['user']['id'],
+                'user_friends_count': temper['friends_count'],
+                'user_follower_count': temper['followers_count'],
+                'user_location': temper['user_location'],
+                'text': parsed_json['text'],
+                'created_at': parsed_json['created_at'],
+                'is_matched': is_matched
+            }, ignore_index=True)
             max_id = tempest_reply.id
         if len(replies) != 100:
             break
@@ -141,17 +180,20 @@ if __name__ == "__main__":
                 continue
             elif 0 == index % parameters['refresh_lock']:
                 # update lock
-                print(current_index)
                 current_index = str(index)
+                print('Process lock updated:' + current_index)
                 lockerFile = open(parameters['process_directory'] + '/' + parameters['lock_file'], 'w+')
                 lockerFile.write(current_index)
                 lockerFile.close()
             # {"user":{"screen_name": "RT_com"},"id":1163141231075090432}
+            # correct index is 0 but I used 2 to test it out
             conditions = '{"user":{"screen_name": "' + element[5] + '"},"id":' + str(element[0]) + '}'
             for tweet in get_tweets(conditions):
                 for reply in get_replies(tweet):
                     pass
 
+        print('Operation finished')
+        print('Last lock index: ' + str(index))
         lockerFile = open(parameters['process_directory'] + '/' + parameters['lock_file'], 'w+')
         lockerFile.write(str(index))
         lockerFile.close()

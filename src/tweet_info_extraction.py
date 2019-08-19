@@ -33,7 +33,6 @@ if '' == json_file_name:
     print('Parser has no new file!')
     sys.exit(os.EX_NOINPUT)
 
-
 # Step 1: Load .json file into a list of json variable
 print('processing the file: ' + json_file_name + '\n')
 list_of_tweets_json = []
@@ -86,8 +85,13 @@ replies = pd.DataFrame(columns=['tweet_id',
 for j in data:
     # download images: we just grab the first image
     imageURL = j['entities']['media'][0]['media_url']
-    urllib.request.urlretrieve(imageURL,
-                               parameters['image_directory'] + '/image_' + str(j['id']) + '.' + imageURL.split('.')[-1])
+    try:
+        urllib.request.urlretrieve(imageURL,
+                                   parameters['image_directory'] +
+                                   '/image_' + str(j['id']) + '.' +
+                                   imageURL.split('.')[-1])
+    except:
+        print('Parser Error! Can not download: ' + imageURL)
     # grab tweet data
     tweets = tweets.append({'tweet_id': j['id'],
                             'tweet_str_id': j['id_str'],
