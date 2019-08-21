@@ -1,8 +1,9 @@
 # parameters
-consumer_key: 'WAfMFUeX727ZJyHbxRG5TqbHx'
-consumer_secret_key: 'QempGWO01nvNXJROIBHdIPAcGsC78qCzM4XI7ZYbZEsTlL0jb2'
-access_token: '1132328609270697985-o0RjHLFH5oEeNw5It2gOiJgPOPBpMD'
-access_token_key: 'CmFuCC6UAZpV8GgSs5Y3pH3dGWX5x1zL6cNry2ESQT7Pr'
+consumer_key: 'CBT0lMtAT2zFr0114BOpuei5i'
+consumer_secret_key: '4ocCYHmHxGXCeFTrYRm3a8DlEvWPGn80qw0rHvPBWkrJpMf90c'
+access_token: '1163484798599540737-h917Ws9u905AF33TEwDMSZAiIMq6ZE'
+access_token_key: 'RvA5LDsRh8RXZgMrTe2OYtcAkJ8koVT2S0AhCGwnh19fz'
+pin_code: '4837480'
 crawl_directory: './data/crawl'
 process_directory: './data/processed'
 image_directory: './data/images'

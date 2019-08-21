@@ -14,3 +14,5 @@ tweepy
 twitter
 PyYAML
 python-twitter
+twarc
+subprocess=17.5.
