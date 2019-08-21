@@ -76,27 +76,32 @@ tweets = pd.DataFrame(columns=['tweet_id',
                                'user_id',
                                'original_user_id',
                                'created_at',
-                               'image_url'])
+                               'image_url',
+                               'image_name',
+                               'vote'
+                               ])
 
 replies = pd.DataFrame(columns=['tweet_id',
                                 'original_user_id'])
-
-# for j in list_of_tweets_with_images:
+# check previous main tweet id to avoid re-download of same images
+prevTweetId = ''
+imageName = ''
 for j in data:
     # download images: we just grab the first image
     imageURL = j['entities']['media'][0]['media_url']
+    key = j['retweeted_status']['id_str'] if 'retweeted_status' in j.keys() else 'None'
     try:
-        urllib.request.urlretrieve(imageURL,
-                                   parameters['image_directory'] +
-                                   '/image_' + str(j['id']) + '.' +
-                                   imageURL.split('.')[-1])
+        if 'None' == key or prevTweetId != key:
+            print(prevTweetId + '!=' + key)
+            imageName = 'image_' + str(j['id']) + '.' + imageURL.split('.')[-1]
+            urllib.request.urlretrieve(imageURL, parameters['image_directory'] + '/' + imageName)
     except:
         print('Parser Error! Can not download: ' + imageURL)
+    prevTweetId = key
     # grab tweet data
     tweets = tweets.append({'tweet_id': j['id'],
                             'tweet_str_id': j['id_str'],
-                            'retweet_from_tweet_str_id': j['retweeted_status'][
-                                'id_str'] if 'retweeted_status' in j.keys() else 'None',
+                            'retweet_from_tweet_str_id': key,
                             'text': j['text'],
                             'hashtags': j['entities']['hashtags'][0]['text'] if len(
                                 j['entities']['hashtags']) != 0 else 'None',
@@ -104,7 +109,8 @@ for j in data:
                             'original_user_id': j['retweeted_status']['user']['screen_name'] if
                             'retweeted_status' in j.keys() else 'None',
                             'created_at': j['created_at'],
-                            'image_url': j['entities']['media'][0]['media_url']
+                            'image_url': j['entities']['media'][0]['media_url'],
+                            'image_name': imageName
                             }, ignore_index=True)
 
 tweets = tweets.sort_values(by=['retweet_from_tweet_str_id', 'tweet_id', 'created_at'])
