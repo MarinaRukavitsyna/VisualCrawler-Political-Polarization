@@ -2,6 +2,16 @@ import face_recognition
 import os
 import sys
 import pandas as pd
+import yaml
+
+parameters = {}
+print('Initializing Face Recognition...')
+# read parameters:
+with open("../parameters.yml", 'r') as stream:
+    try:
+        parameters = yaml.safe_load(stream)
+    except yaml.YAMLError as exc:
+        print(exc)
 
 '''
     reading all images within the directory
@@ -108,52 +118,70 @@ def update_tagger_frame(data_frame, token):
     return data_frame
 
 
-# actual main code>
+if __name__ == "__main__":
 
-# AJAVAHER: call Tweeter API >>>
+    className = parameters['class_name']
+    if '' == className:
+        print('Select Class Name: (Class___)')
+        className = input()
+    print('FaceRecognition: Initializing...')
+    # which class of data we want to have
+    # dir_path = os.path.dirname(os.path.realpath(__file__))
+    # taggedImagesDirectory = dir_path + "/data/classes/" + className + "/"
+    taggedImagesDirectory = parameters['class_directory'] + '/' + className + '/'
+    if not os.path.exists(taggedImagesDirectory):
+        print("Error: Class entered does not exist!")
+        sys.exit()
+    if not os.path.isdir(taggedImagesDirectory):
+        print("Error: Class entered does not have valid directory!")
+        sys.exit()
 
-className = ''
-if '' == className:
-    print('Select Class Name: (Class___)')
-    className = input()
-print('FaceRecognition: Initializing...')
-# which class of data we want to have
-dir_path = os.path.dirname(os.path.realpath(__file__))
-taggedImagesDirectory = dir_path + "/data/" + className + "/"
-if not os.path.exists(taggedImagesDirectory):
-    print("Error: Class entered does not exist!")
-    sys.exit()
-if not os.path.isdir(taggedImagesDirectory):
-    print("Error: Class entered does not have valid directory!")
-    sys.exit()
+    print('FaceRecognition: Reading Class Images...')
+    imageList = read_all_known_images(taggedImagesDirectory)
 
-print('FaceRecognition: Reading Class Images...')
-imageList = read_all_known_images(taggedImagesDirectory)
+    print('FaceRecognition: Reading Class tags...')
+    classTaggerFrame = read_tagger(taggedImagesDirectory + "index.csv")
+    # adding score count
 
-print('FaceRecognition: Reading Class tags...')
-classTaggerFrame = read_tagger(taggedImagesDirectory + "index.csv")
-# adding score count
+    classTaggerFrame['occurrence'] = 0
 
-classTaggerFrame['occurrence'] = 0
+    checkLockerFile = open(parameters['process_directory'] + '/' + parameters['face_file'])
+    current_index = checkLockerFile.read()
+    csvFile = parameters['process_directory'] + '/' + parameters['parsed_file']
+    print('Starting from last locked row: ' + current_index)
 
-# tests>
+    rows = pd.read_csv(csvFile, sep=',')
+    index = -1
+    previousLink = ''
+    rows['vote'] = ''
+    rows['matches'] = ''
+    for index, element in rows.iterrows():
+        if index <= int(current_index):
+            continue
+        elif 0 == index % parameters['refresh_lock']:
+            # update lock
+            current_index = str(index)
+            print('Process lock updated:' + current_index)
+            lockerFile = open(parameters['process_directory'] + '/' + parameters['face_file'], 'w+')
+            lockerFile.write(current_index)
+            lockerFile.close()
+            # save the processed data
+            rows.to_csv(csvFile, index=False, sep=',', encoding='utf-8')
+        suggestedTag = []
+        # we skip any row un-original row or row with repeated images because vote will not change
+        if 'None' != element['retweet_from_tweet_str_id'] and previousLink != element['image_url']:
+            previousLink = element['image_url']
+            unknownImagePath = parameters['image_directory'] + '/' + element['image_name']
+            print('Scanning Tweet # ' + str(element['tweet_id']))
+            suggestedTag = detect_unknown_image(imageList, unknownImagePath, True)
+        vote = len(suggestedTag)
+        rows.loc[index, 'vote'] = vote
+        rows.loc[index, 'matches'] = '####'.join(suggestedTag)
 
-testFiles = [
-    "temp_113.jpeg",
-    "temp_2.jpeg",
-    "temp_3.jpg",
-    "temp_6.jpg",
-    "temp_7.jpg",
-    "temp_10.jpg",
-]
-
-for tempFile in testFiles:
-    unknownImagePath = dir_path + "/data/images/temp/" + tempFile
-    suggestedTag = detect_unknown_image(imageList, unknownImagePath, True)
-    classTaggerFrame = update_tagger_frame(classTaggerFrame, suggestedTag)
-
-    # AJAVAHER: call hate speech detector >>>
-
-    print(suggestedTag)
-
-print(classTaggerFrame)
+    print('Saving CSV file...')
+    rows.to_csv(csvFile, index=False, sep=',', encoding='utf-8')
+    print('Operation finished')
+    print('Last lock index: ' + str(index))
+    lockerFile = open(parameters['process_directory'] + '/' + parameters['face_file'], 'w+')
+    lockerFile.write(str(index))
+    lockerFile.close()

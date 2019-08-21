@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     with open(csvFile) as my_csv:
         rows = csv.reader(my_csv, delimiter=',')
-        index = 0
+        index = -1
         for index, element in enumerate(rows):
             if index <= int(current_index):
                 continue

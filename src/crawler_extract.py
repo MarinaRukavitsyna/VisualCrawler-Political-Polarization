@@ -36,8 +36,6 @@ if '' == json_file_name:
 # Step 1: Load .json file into a list of json variable
 print('processing the file: ' + json_file_name + '\n')
 list_of_tweets_json = []
-# with open('tweets_date_20190818.json', 'r') as myfile:
-# names_list = [line.strip() for line in myfile if line.strip()]
 
 with open(parameters['crawl_directory'] + '/' + json_file_name, 'r') as my_file:
     names_list = [line.strip() for line in my_file if line.strip()]  # removing blank lines
@@ -55,16 +53,6 @@ for entity in list_of_tweets_json:
 
 print('number of tweets with images: ' + str(len(list_of_tweets_with_images)) + '\n')
 
-# Step 3: taking only those tweets that are about donald trump
-'''
-list_tweets_about_string = []
-check_string = ['donald', 'trump', 'donald trump']
-for tweet in list_of_tweets_with_images:
-    txt = tweet['text'].lower()
-    if any(x in txt for x in check_string):
-        list_tweets_about_string.append(tweet)
-print('number of tweets about Donald Trump: ' + str(len(list_tweets_about_string)) + '\n')
-'''
 data = list_of_tweets_with_images
 
 # Step 4: Extracting the tweet related info and populating a pandas dataframe:
@@ -77,8 +65,7 @@ tweets = pd.DataFrame(columns=['tweet_id',
                                'original_user_id',
                                'created_at',
                                'image_url',
-                               'image_name',
-                               'vote'
+                               'image_name'
                                ])
 
 replies = pd.DataFrame(columns=['tweet_id',
@@ -97,11 +84,12 @@ for j in data:
         prevTweetId = key
     except:
         print('Parser Error! Can not download: ' + imageURL)
+    textOfTweet = j['text'].replace(',', '&comma;')
     # grab tweet data
     tweets = tweets.append({'tweet_id': j['id'],
                             'tweet_str_id': j['id_str'],
                             'retweet_from_tweet_str_id': key,
-                            'text': j['text'],
+                            'text': textOfTweet,
                             'hashtags': j['entities']['hashtags'][0]['text'] if len(
                                 j['entities']['hashtags']) != 0 else 'None',
                             'user_id': j['user']['screen_name'],
@@ -113,11 +101,8 @@ for j in data:
                             }, ignore_index=True)
 
 tweets = tweets.sort_values(by=['retweet_from_tweet_str_id', 'tweet_id', 'created_at'])
-
 # Step 5: exporting the aggregated tweet info into a .csv file:
-# file_name = 'tweets_' + str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '.csv'
 isHeaderActive = not os.path.exists(parameters['process_directory'] + '/' + parameters['parsed_file'])
-
 with open(parameters['process_directory'] + '/' + parameters['parsed_file'], 'a', encoding="utf-8") as f:
     tweets.to_csv(f, header=isHeaderActive, index=False)
 
