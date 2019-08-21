@@ -63,7 +63,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, 
 # The below list comprises of Twitter User ID corresponding to each newspaper user screen name Eg.,
 # 759251 is the twitter user id of screen name 759251. More can be added to the list by simply looking
 # up at http://gettwitterid.com/?user_name=CNN&submit=GET+USER+ID
-print('Loading Handles! ')
+print('Loading Handles!')
 follow_list = parameters['t_handles']
 # track_list=['trump','donald trump','president','donald','US Congress','angela merkel','government']
 

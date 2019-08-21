@@ -91,13 +91,12 @@ for j in data:
     imageURL = j['entities']['media'][0]['media_url']
     key = j['retweeted_status']['id_str'] if 'retweeted_status' in j.keys() else 'None'
     try:
-        if 'None' == key or prevTweetId != key:
-            print(prevTweetId + '!=' + key)
-            imageName = 'image_' + str(j['id']) + '.' + imageURL.split('.')[-1]
-            urllib.request.urlretrieve(imageURL, parameters['image_directory'] + '/' + imageName)
+        # if 'None' == key or  True== parameters['overrule_images']:
+        imageName = 'image_' + str(j['id']) + '.' + imageURL.split('.')[-1]
+        urllib.request.urlretrieve(imageURL, parameters['image_directory'] + '/' + imageName)
+        prevTweetId = key
     except:
         print('Parser Error! Can not download: ' + imageURL)
-    prevTweetId = key
     # grab tweet data
     tweets = tweets.append({'tweet_id': j['id'],
                             'tweet_str_id': j['id_str'],

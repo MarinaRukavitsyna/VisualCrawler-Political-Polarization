@@ -12,6 +12,7 @@ memory_file: 'history'
 lock_file: 'locker'
 parsed_file: 'dataset.csv'
 reply_file: 'replies.csv'
+overrule_images: False
 refresh_lock: 50
 t_handles: ['4898501', '12699932', '14216661', '12848262', '612473',
             '11178352', '807095', '16973333', '255877649', '17446621',
