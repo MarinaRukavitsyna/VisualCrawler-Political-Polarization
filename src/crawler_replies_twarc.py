@@ -59,7 +59,7 @@ if __name__ == "__main__":
                 lockerFile.close()
             # proceed for original tweets only:
             tweet_id = element[0]
-            if 'None' == element[2]:
+            if '' != element[len(element)-2] and '0' != element[len(element)-2]:
                 print('Processing ' + tweet_id)
                 out = subprocess.Popen(['twarc', 'replies', str(element[0]), '--recursive'],
                                        stdout=subprocess.PIPE,
@@ -112,6 +112,7 @@ if __name__ == "__main__":
                         temper['followers_count'] = parsed_json['user']['followers_count']
                     except:
                         pass
+                    full_text = parsed_json['full_text'].replace(',', '&comma;')
                     my_reply_list = my_reply_list.append({
                         'tweet_id': tweet_id,
                         'reply_id': parsed_json['id'],
@@ -123,7 +124,7 @@ if __name__ == "__main__":
                         'user_friends_count': temper['friends_count'],
                         'user_follower_count': temper['followers_count'],
                         'user_location': temper['user_location'],
-                        'text': parsed_json['full_text'],
+                        'text': full_text,
                         'created_at': parsed_json['created_at'],
                     }, ignore_index=True)
 

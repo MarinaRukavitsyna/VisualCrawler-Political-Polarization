@@ -169,7 +169,7 @@ if __name__ == "__main__":
             rows.to_csv(csvFile, index=False, sep=',', encoding='utf-8')
         suggestedTag = []
         # we skip any row un-original row or row with repeated images because vote will not change
-        if 'None' != element['retweet_from_tweet_str_id'] and previousLink != element['image_url']:
+        if 'None' == element['retweet_from_tweet_str_id'] and previousLink != element['image_url']:
             previousLink = element['image_url']
             unknownImagePath = parameters['image_directory'] + '/' + element['image_name']
             print('Scanning Tweet # ' + str(element['tweet_id']))
