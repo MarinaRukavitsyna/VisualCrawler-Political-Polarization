@@ -18,3 +18,31 @@ This is the Visual Crawler Research Lab Project held by University of Koblenz-La
 
 # License
 All code is licensed under [MIT License](https://opensource.org/licenses/MIT) .
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Help:
+
+- Pull the latest version.
+
+- Check out
+ 
+- in termianl go to the directory
+
+- git branch
+ 
+to see the branches
+
+- git branch <name of your new branch>
+
+to make new
+
+- check out your new branch
+
+- push to your own branch only (don't push to master)
+
+- finalize commit and push
+
+- in the github we can make merge request and merge after changes are done
+ 

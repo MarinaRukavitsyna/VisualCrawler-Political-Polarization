@@ -3,6 +3,13 @@
 -e .
 
 # external requirements
+cmake
+pandas
+face_recognition
+libgtk-3-dev = 3.*
+libboost-python-dev = 1.*
+libx11-dev >= 1:1.0.0-1
+libatlas-base-dev = 3.10.2-9
 click
 Sphinx
 coverage
