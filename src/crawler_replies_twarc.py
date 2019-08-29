@@ -61,7 +61,8 @@ if __name__ == "__main__":
             tweet_id = element[0]
             if '' != element[len(element)-2] and '0' != element[len(element)-2]:
                 print('Processing ' + tweet_id)
-                out = subprocess.Popen(['twarc', 'replies', str(element[0]), '--recursive'],
+                # seems better with no recursion active
+                out = subprocess.Popen(['twarc', 'replies', str(element[0])],
                                        stdout=subprocess.PIPE,
                                        stderr=subprocess.STDOUT)
                 replies, errors = out.communicate()
