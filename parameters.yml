@@ -6,15 +6,18 @@ access_token_key: 'ToXofHDjxAsqyk39voeTI0uxeop3YCYakxxfOPxOxafhP'
 pin_code: '6570183'
 crawl_directory: './data/crawl'
 process_directory: './data/processed'
+dataset_directory: './dataset'
 image_directory: './data/images'
 log_directory: './data/log'
 class_directory: './data/classes'
 memory_file: 'history'
 lock_file: 'locker'
 face_file: 'facer'
+label_file: 'labeler'
 parsed_file: 'dataset.csv'
 reply_file: 'replies.csv'
 class_name: 'ClassPowers'
+dataset_file: 'labeled_tweets.csv'
 overrule_images: False
 refresh_lock: 3
 t_handles: ['4898501', '12699932', '14216661', '12848262', '612473',

@@ -22,4 +22,5 @@ twitter
 PyYAML
 python-twitter
 twarc
+nltk
 subprocess=17.5.
