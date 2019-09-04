@@ -109,15 +109,17 @@ def extract_features(document):
 # 0 - not detected
 # 1 - subject of hate speech
 # why first 2000 was chosen?
+print('Loading data! Please wait...')
 df_labeled_tweets = pd.read_csv(parameters['dataset_directory'] + '/' + parameters['dataset_file'])
-df_token_tweets = create_tokenized_list(df_labeled_tweets)
+df_token_tweets = create_tokenized_list(df_labeled_tweets.head(parameters['max_power']))
 word_features = get_word_features(get_words_in_tweets(df_token_tweets))
 training_set = nltk.classify.apply_features(extract_features, df_token_tweets)
 classifier = nltk.NaiveBayesClassifier.train(training_set)
+print('Labeling is now started...')
 # current index
 checkLockerFile = open(parameters['process_directory'] + '/' + parameters['label_file'])
-index = -1
 current_index = checkLockerFile.read()
+index = -1
 # open up the replies file
 csvFile = parameters['process_directory'] + '/' + parameters['reply_file']
 df_replies = pd.read_csv(csvFile, sep=',')
@@ -127,23 +129,22 @@ if 'automatic' not in df_replies.columns:
     df_replies['automatic'] = ''
 if 'manual' not in df_replies.columns:
     df_replies['manual'] = ''
-
-print('Labeling is now started...')
 for index, row in df_replies.iterrows():
     if index <= int(current_index):
         continue
     elif 0 == index % parameters['refresh_lock']:
         current_index = str(index)
-        print('Process lock updated:' + current_index)
+        # print('Process lock updated:' + current_index)
         lockerFile = open(parameters['process_directory'] + '/' + parameters['face_file'], 'w+')
         lockerFile.write(current_index)
         lockerFile.close()
         # save the processed data
         df_replies.to_csv(csvFile, index=False, header=True, sep=',', encoding='utf-8')
     # check for the hate occurrence
-    tempest = preprocess_tweet(row["tweet"])
+    tempest = preprocess_tweet(row['text'])
     tempest = tempest.replace('&comma;', ',')
     tokenized_text = tokenize(tempest)
+    print(str(index) + ' xxx ' + str(classifier.classify(extract_features(tokenized_text))))
     df_replies.loc[index, 'automatic'] = classifier.classify(extract_features(tokenized_text))
     # automatic and manual have to be compared
 print('Last lock index: ' + str(index))
