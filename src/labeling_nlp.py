@@ -144,7 +144,7 @@ for index, row in df_replies.iterrows():
     tempest = preprocess_tweet(row['text'])
     tempest = tempest.replace('&comma;', ',')
     tokenized_text = tokenize(tempest)
-    print(str(index) + ' xxx ' + str(classifier.classify(extract_features(tokenized_text))))
+    # print(str(index) + ' xxx ' + str(classifier.classify(extract_features(tokenized_text))))
     df_replies.loc[index, 'automatic'] = classifier.classify(extract_features(tokenized_text))
     # automatic and manual have to be compared
 print('Last lock index: ' + str(index))
