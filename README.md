@@ -16,7 +16,7 @@ We use a mixture of different techniques to take advantage of Tweeter API. On av
 In order to be able to use the Visual Crawler one has to first apply for at least 1 Twitter Stream API key pair. After this, through the following steps Visual Crawler can be deployed and used:
 
 
-- ## Step 0:  Configurations:
+- ### Step 0:  Configurations:
 Parameters in parameter.yml file have to be proberly set. Here is the description for each value:
 
 ```json
@@ -45,6 +45,40 @@ max_power: 'Max number of wighted tokens for labeling'
 refresh_lock: 'Distance between lock update default is 3'
 t_handles: 'array [] of all news handels'
 ```
+
+- ### Step 1:  Create a Class:
+
+In order to use Visual Crawler, one has to provide a base detection class. A class consists of a csv file that has name of the politicans or people that should be tracked and detected by the script. Each row requires at least 1 image representing a clear photo of the person's face. Based on our experience, 3 different photos provide you with a good performance and accuraccy.
+
+The structure of the index.csv file shall be as mentioned here:
+```json 
+name	token	tags
+<name of person>	<image prefix>	<tags about related topics>
+<name of person>	<image prefix>	<tags about related topics>
+<name of person>	<image prefix>	<tags about related topics>
+```
+
+- ### Step 2:  Run Steamer:
+
+Running streamer will collect and save temp json files of tweets that have been sent in between the last 7 days period. `Crawler_streamer.py` only collects the raw data and process each time you run it.
+
+
+- ### Step 3:  Extractor:
+
+To extract Tweets and download images of each Tweet, we can run `Crawler_extract.py`. This script does the first hand analysis on data and makes a folder with all avaible phots alongs with `data.csv` file which is all of valid Tweets. This script has the ability to detect and ignore already parsed json files so removing stream files manually is not needed.
+
+- ### Step 4:  Detector:
+
+In this part, we run the face recognizer on all of the valid Tweets of `data.csv`. `Crawler_detect.py` is the code that is able to find faces of politicians using Python Face Recognition libraries. One image can include face of 1 or more politicians, if so vote column of that Tweet will be set to number of matched politicans and matches will be list of all names.
+
+- ### Step 5:  Collect Replies:
+
+`Crawler_replies_twarc.py` collects the replies to Tweets that had at least 1 matching face on their original Tweets. This code uses TWARC library that needs pre-configuration. It is worth mentioning that the code is very slow in finding replies and it might take days to make generate useful information. All the replies will be saved in a new csv file called `replies.csv`.
+
+
+More information about Twarc: https://github.com/DocNow/twarc
+
+- ### Step 6:  Labelings:
 
 
 -----------------------------------------------------------------------------------------------------------------------------
