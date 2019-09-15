@@ -1,4 +1,4 @@
-# Forschungspraktikum/Projektpraktikum "Online political polarization" > Visual Crawler Group
+# "Online political polarization" > Visual Crawler Group (Forschungspraktikum/Projektpraktikum- Uni Koblenz)
 
 # Summary
 
