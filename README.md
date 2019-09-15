@@ -103,7 +103,8 @@ More information about implementation, achievable results and challenges are ava
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-# Contacts
+# Contact Us
+
 This is the Visual Crawler Research Lab Project held by University of Koblenz-Landau in Summer Semester of 2019. The is held by Dr. Oul Han and Frau Ipek Baris as supervisors. In case, you have questions you can stay in touch with the team directly via email:
 
 * Dr. Oul Han, han@uni-koblenz.de
@@ -116,6 +117,7 @@ This is the Visual Crawler Research Lab Project held by University of Koblenz-La
 -----------------------------------------------------------------------------------------------------------------------------
 
 # License
+
 All code is licensed under [MIT License](https://opensource.org/licenses/MIT) .
 
 
