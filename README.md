@@ -11,7 +11,48 @@ We use a mixture of different techniques to take advantage of Tweeter API. On av
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-# How to?
+# How To
+
+In order to be able to use the Visual Crawler one has to first apply for at least 1 Twitter Stream API key pair. After this, through the following steps Visual Crawler can be deployed and used:
+
+
+- ## Step 0:  Configurations:
+Parameters in parameter.yml file have to be proberly set. Here is the description for each value:
+
+```json
+
+# parameters
+consumer_key: 'Twitter consumer key'
+consumer_secret_key: 'Twitter secrert'
+access_token: 'Access token provided by Twitter'
+access_token_key: 'Access key provided by Twitter'
+pin_code: 'Twarc pin code'
+crawl_directory: './data/crawl' 
+process_directory: './data/processed'
+dataset_directory: './dataset'
+image_directory: './data/images'
+log_directory: './data/log'
+class_directory: './data/classes'
+memory_file: 'history' 
+lock_file: 'locker'
+face_file: 'facer'
+label_file: 'labeler'
+parsed_file: 'dataset.csv'
+reply_file: 'replies.csv'
+class_name: 'Proper class name that represents class directory '
+dataset_file: 'labeled_tweets.csv'
+max_power: 'Max number of wighted tokens for labeling'
+refresh_lock: 'Distance between lock update default is 3'
+t_handles: 'array [] of all news handels'
+```
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+# More Info
+
+More information about implementation, achievable results and challenges are avaible on our report document sheet via the link below, however due to data protection rules we are not allowed to share and distrubte our datasets.
+
+> Report Doc: https://drive.google.com/file/d/1Fmvtc28Yz5C5yAevarQ9CpJqWgFjs2KM/view?usp=sharing
 
 -----------------------------------------------------------------------------------------------------------------------------
 
