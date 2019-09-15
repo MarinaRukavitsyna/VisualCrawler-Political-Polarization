@@ -80,6 +80,7 @@ More information about Twarc: https://github.com/DocNow/twarc
 
 - ### Step 6:  Labelings:
 
+To label replies, you can run `labeling_nlp.py`. This code uses a mixture of 2 semi-supervised dictionary approaches to find cases of hate speech . This results in a new column called `automatic` on each reply row. This can of course be against a human proof reader to check the validity of votes. In our sample of 1000 Tweets, we have reached 86 % agreement rate.
 
 -----------------------------------------------------------------------------------------------------------------------------
 # More Info
