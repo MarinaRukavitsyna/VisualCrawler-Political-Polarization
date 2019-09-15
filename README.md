@@ -13,19 +13,9 @@ We use a mixture of different techniques to take advantage of Tweeter API. On av
 
 # How to?
 
-
 -----------------------------------------------------------------------------------------------------------------------------
 
-# Contacts
-This is the Visual Crawler Research Lab Project held by University of Koblenz-Landau in Summer Semester of 2019. The is held by Dr. Oul Han and Frau Ipek Baris as supervisors. In case, you have questions you can stay in touch with the team directly via email:
-
-* Dr. Oul Han, han@uni-koblenz.de
-* Ipek Baris, ibaris@uni-koblenz.de
-* [Institute for Web Science and Technoloogies (WEST)](https://west.uni-koblenz.de), University of Koblenz-Landau
-
------------------------------------------------------------------------------------------------------------------------------
-
-# Contributers:
+# Contributers
 
 - Amir Reza Javaher Dashti, javaher@uni-koblenz.de
 
@@ -34,6 +24,18 @@ This is the Visual Crawler Research Lab Project held by University of Koblenz-La
 - Rahini Chandrasekaran, rahinic@uni-koblenz.de
 
 - Marina Ernst, ernstmargo@uni-koblenz.de
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+# Contacts
+This is the Visual Crawler Research Lab Project held by University of Koblenz-Landau in Summer Semester of 2019. The is held by Dr. Oul Han and Frau Ipek Baris as supervisors. In case, you have questions you can stay in touch with the team directly via email:
+
+* Dr. Oul Han, han@uni-koblenz.de
+
+* Ipek Baris, ibaris@uni-koblenz.de
+
+* [Institute for Web Science and Technoloogies (WEST)](https://west.uni-koblenz.de), University of Koblenz-Landau
+
 
 -----------------------------------------------------------------------------------------------------------------------------
 
