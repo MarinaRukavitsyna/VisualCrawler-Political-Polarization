@@ -1,4 +1,6 @@
-# "Online political polarization" > Visual Crawler Group (Forschungspraktikum/Projektpraktikum- Uni Koblenz)
+# A Viusal Crawler to Monitor Political Hate Speech Using Twitter Data
+
+> As part of the Forschungspraktikum/Projektpraktikum, Online political polarization Research Lab, Visual Crawler Group, from University of Koblenz-Landau
 
 # Summary
 
