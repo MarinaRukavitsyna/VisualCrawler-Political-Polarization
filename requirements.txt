@@ -22,4 +22,7 @@ twitter
 PyYAML
 python-twitter
 twarc
+nltk
+Jupyter
 subprocess=17.5.
+matplotlib
