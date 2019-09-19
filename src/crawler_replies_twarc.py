@@ -59,7 +59,8 @@ if __name__ == "__main__":
                 lockerFile.close()
             # proceed for original tweets only:
             tweet_id = element[0]
-            if '' != element[len(element)-2] and '0' != element[len(element)-2]:
+            # is tweet original?
+            if 'None' == str(element[2]):
                 print('Processing ' + tweet_id)
                 # seems better with no recursion active
                 out = subprocess.Popen(['twarc', 'replies', str(element[0])],
